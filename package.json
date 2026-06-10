@@ -1,0 +1,20 @@
+{
+  "name": "opensearch-upload",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "@opensearch-project/opensearch": "^3.5.1",
+    "dotenv": "^17.4.2",
+    "exceljs": "^4.4.0",
+    "google-auth-library": "^10.6.2",
+    "google-spreadsheet": "^5.2.0"
+  }
+}
