@@ -45,8 +45,8 @@ async function fetchAll(indexName) {
       scrollId = scrollRes.body._scroll_id;
       hits = scrollRes.body.hits.hits;
     }
-    console.log(`\n✅ Total retrieved: ${allDocs.length}`);
-  } catch (e) { console.error(`❌ Error fetching ${indexName}:`, e.message); }
+    console.log(`\n Total retrieved: ${allDocs.length}`);
+  } catch (e) { console.error(` Error fetching ${indexName}:`, e.message); }
   return allDocs;
 }
 
@@ -166,17 +166,17 @@ async function run() {
       }
     });
 
-    console.log(`🚀 Uploading ${finalBatch.length / 2} records...`);
+    console.log(` Uploading ${finalBatch.length / 2} records...`);
     const BATCH_SIZE = 500;
     for (let i = 0; i < finalBatch.length; i += BATCH_SIZE * 2) {
       const chunk = finalBatch.slice(i, i + BATCH_SIZE * 2);
       await client.bulk({ body: chunk });
       const progress = Math.min((i / 2) + BATCH_SIZE, finalBatch.length / 2);
-      process.stdout.write(`📦 Progress: ${progress.toFixed(0)} / ${finalBatch.length / 2}\r`);
+      process.stdout.write(` Progress: ${progress.toFixed(0)} / ${finalBatch.length / 2}\r`);
     }
 
-    console.log(`\n\n✅ DONE! Count is ~58k and PSC data is mapped if SN exists.`);
-  } catch (err) { console.error("❌ CRITICAL ERROR:", err); }
+    console.log(`\n\n DONE! Count is ~58k and PSC data is mapped if SN exists.`);
+  } catch (err) { console.error(" CRITICAL ERROR:", err); }
 }
 
 run();
