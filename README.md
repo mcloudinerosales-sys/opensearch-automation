@@ -1,8 +1,8 @@
-# 📡 Automated Data Pipeline: Google Sheets to OpenSearch Unified Sync
+#  Automated Data Pipeline: Google Sheets to OpenSearch Unified Sync
 
 An automated data engineering pipeline that synchronizes, normalizes, and reconciles master inventory data and OCR records into an OpenSearch cluster. Built using **Node.js** and orchestrated via **GitHub Actions** for hands-free daily tracking.
 
-## 🚀 Key Features
+##  Key Features
 
 * **Automated Scheduling (Cron Jobs):** Workflows trigger automatically during off-peak hours (PHT) using GitHub Actions schedules to maintain fresh datasets without manual intervention.
 * **Data Aggregation & Cross-Index Reconciliation:** Features a high-performance lookup mechanism (`unified-recon.js`) that processes and cross-references data across 4 distinct asset management sources based on serial number mapping.
@@ -11,7 +11,7 @@ An automated data engineering pipeline that synchronizes, normalizes, and reconc
 
 ---
 
-## 🛠️ System Architecture & Workflow
+##  System Architecture & Workflow
 
 1. **Ingestion Layer:** Reads live operational asset layers from Google Sheets tabs (`OCR`, `MATCH`, `MISSING`) via the Google Sheets and Google Auth API.
 2. **Processing Layer (Node.js):** Cleans, converts types, standardizes key attributes, and normalizes inputs to prepare them for synchronization.
@@ -19,7 +19,7 @@ An automated data engineering pipeline that synchronizes, normalizes, and reconc
 
 ---
 
-## 💻 Tech Stack
+##  Tech Stack
 
 * **Runtime Environment:** Node.js (v20)
 * **Database Cluster:** OpenSearch (Client `@opensearch-project/opensearch`)
@@ -28,7 +28,7 @@ An automated data engineering pipeline that synchronizes, normalizes, and reconc
 
 ---
 
-## 🔧 Environment Variables Required
+##  Environment Variables Required
 
 To run this pipeline successfully inside GitHub Actions, ensure the following keys are added to your **Repository Secrets**:
 
@@ -40,7 +40,7 @@ To run this pipeline successfully inside GitHub Actions, ensure the following ke
 
 ---
 
-## ⚙️ Automated Workflows Configuration
+##  Automated Workflows Configuration
 
 The automation routines run sequentially every morning (PHT):
 * **Input Sync (`sync-input.yml`):** Automatically processes master files at 3:00 AM PHT (`0 19 * * *`).
