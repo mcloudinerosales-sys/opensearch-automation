@@ -1,0 +1,36 @@
+name: Daily OpenSearch Sync - psc-recon-ocr-transmittal-returns-latest
+
+on:
+  schedule:
+    # 7:15 PM UTC ay 3:15 AM Philippines Time (PHT)
+    - cron: '15 19 * * *'
+  workflow_dispatch: # Para sa manual testing
+
+jobs:
+  sync-data:
+    runs-on: payconnect-arc-runner
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Create Auth File
+        run: echo '${{ secrets.SERVICE_ACCOUNT_JSON }}' > service-account.json
+
+      - name: Run Script
+        env:
+          OPENSEARCH_URL: ${{ secrets.OPENSEARCH_URL }}
+          OPENSEARCH_USERNAME: ${{ secrets.OPENSEARCH_USERNAME }}
+          OPENSEARCH_PASSWORD: ${{ secrets.OPENSEARCH_PASSWORD }}
+          GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID_OCR }} # Eto yung OCR ID 
+          INDEX_NAME_OCR: ${{ secrets.INDEX_NAME_OCR }}
+         # ito yung glink https://docs.google.com/spreadsheets/d/1YoF37pKbs_iVFIIDbDbc1ffhJJazEAXQAINzF1ks9sA/edit?gid=405757808#gid=405757808          INDEX_NAME_OCR: ${{ secrets.INDEX_NAME_OCR }}      # Eto yung OCR Index
+        run: node upsert-ocr.js
