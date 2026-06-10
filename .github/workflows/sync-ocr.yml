@@ -32,5 +32,5 @@ jobs:
           OPENSEARCH_PASSWORD: ${{ secrets.OPENSEARCH_PASSWORD }}
           GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID_OCR }} # Eto yung OCR ID 
           INDEX_NAME_OCR: ${{ secrets.INDEX_NAME_OCR }}
-         # ito yung glink https://docs.google.com/spreadsheets/d/1YoF37pKbs_iVFIIDbDbc1ffhJJazEAXQAINzF1ks9sA/edit?gid=405757808#gid=405757808          INDEX_NAME_OCR: ${{ secrets.INDEX_NAME_OCR }}      # Eto yung OCR Index
+      
         run: node upsert-ocr.js
