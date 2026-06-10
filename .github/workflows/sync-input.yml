@@ -1,4 +1,4 @@
-name: Daily OpenSearch Sync - psc-recon-devices-match-missing2
+name: Daily OpenSearch Sync - psc-recon-devices-match-missing
 
 on:
   schedule:
@@ -30,6 +30,6 @@ jobs:
           OPENSEARCH_URL: ${{ secrets.OPENSEARCH_URL }}
           OPENSEARCH_USERNAME: ${{ secrets.OPENSEARCH_USERNAME }}
           OPENSEARCH_PASSWORD: ${{ secrets.OPENSEARCH_PASSWORD }}
-          GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
-          INDEX_NAME: ${{ secrets.INDEX_NAME }}
-        run: node upsert.js
+          GOOGLE_SHEET_ID_INPUT: ${{ secrets.GOOGLE_SHEET_ID_INPUT }}
+          INDEX_NAME_INPUT: ${{ secrets.INDEX_NAME_INPUT }}
+        run: node upsert-input.js

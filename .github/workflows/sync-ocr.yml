@@ -1,10 +1,10 @@
-name: Daily OpenSearch Sync - psc-recon-devices-match-missing2
+name: Daily OpenSearch Sync - psc-recon-ocr-transmittal-returns-latest
 
 on:
   schedule:
-    # 7:00 PM UTC = 3:00 AM PH Time (PHT)
-    - cron: '0 19 * * *'
-  workflow_dispatch: # Para pwedeng i-run nang manual pa rin
+    # 7:15 PM UTC ay 3:15 AM Philippines Time (PHT)
+    - cron: '15 19 * * *'
+  workflow_dispatch: # Para sa manual testing
 
 jobs:
   sync-data:
@@ -30,6 +30,7 @@ jobs:
           OPENSEARCH_URL: ${{ secrets.OPENSEARCH_URL }}
           OPENSEARCH_USERNAME: ${{ secrets.OPENSEARCH_USERNAME }}
           OPENSEARCH_PASSWORD: ${{ secrets.OPENSEARCH_PASSWORD }}
-          GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
-          INDEX_NAME: ${{ secrets.INDEX_NAME }}
-        run: node upsert.js
+          GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID_OCR }} # Eto yung OCR ID 
+          INDEX_NAME_OCR: ${{ secrets.INDEX_NAME_OCR }}
+         # ito yung glink https://docs.google.com/spreadsheets/d/1YoF37pKbs_iVFIIDbDbc1ffhJJazEAXQAINzF1ks9sA/edit?gid=405757808#gid=405757808          INDEX_NAME_OCR: ${{ secrets.INDEX_NAME_OCR }}      # Eto yung OCR Index
+        run: node upsert-ocr.js

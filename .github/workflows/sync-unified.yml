@@ -1,15 +1,14 @@
-name: Daily OpenSearch Sync - psc-recon-devices-match-missing2
+name: OpenSearch Unified Sync
 
 on:
+  workflow_dispatch: # Manual trigger
   schedule:
-    # 7:00 PM UTC = 3:00 AM PH Time (PHT)
-    - cron: '0 19 * * *'
-  workflow_dispatch: # Para pwedeng i-run nang manual pa rin
+    # 4:00 AM PH Time (20:00 UTC)
+    - cron: '0 20 * * *'
 
 jobs:
-  sync-data:
+  build:
     runs-on: payconnect-arc-runner
-
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -18,18 +17,21 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+        # Dito dapat ang timeout, sa labas ng 'with'
+        timeout-minutes: 5
 
       - name: Install Dependencies
         run: npm install
 
       - name: Create Auth File
-        run: echo '${{ secrets.SERVICE_ACCOUNT_JSON }}' > service-account.json
+        run: |
+          echo '${{ secrets.SERVICE_ACCOUNT_JSON }}' > service-account.json
 
       - name: Run Script
         env:
           OPENSEARCH_URL: ${{ secrets.OPENSEARCH_URL }}
           OPENSEARCH_USERNAME: ${{ secrets.OPENSEARCH_USERNAME }}
           OPENSEARCH_PASSWORD: ${{ secrets.OPENSEARCH_PASSWORD }}
-          GOOGLE_SHEET_ID: ${{ secrets.GOOGLE_SHEET_ID }}
-          INDEX_NAME: ${{ secrets.INDEX_NAME }}
-        run: node upsert.js
+        # Kung malaki ang data (58k rows), baka kailangan mo rin lagyan ng timeout dito
+        run: node unified-recon.js
+        timeout-minutes: 15
